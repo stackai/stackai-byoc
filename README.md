@@ -7,7 +7,7 @@ Deploy StackAI into your Kubernetes cluster with StackAI BYOC (Bring Your Own Cl
 ### Install dependencies
 
 ```sh
-brew install az terraform helm
+brew install az terraform helm fluxcd/tap/flux
 ```
 
 ### Login into Azure and select the tenant and subscription
