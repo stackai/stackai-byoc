@@ -21,6 +21,7 @@ Write-Host "  - Create encrypted cluster key secret"
 Write-Host ""
 
 # Confirm before proceeding
+$confirm = ""
 $confirm = Read-Host "Are you sure you want to proceed? This will overwrite existing keys! (y/N): "
 if ($confirm -ne "y" -and $confirm -ne "Y") {
     Write-Host "Aborted."
@@ -28,6 +29,7 @@ if ($confirm -ne "y" -and $confirm -ne "Y") {
 }
 
 Write-Host "`n$($YELLOW)⚠️  WARNING: This will overwrite any existing SOPS configuration!$($NC)"
+$confirm = ""
 $confirm = Read-Host "Type 'CONFIRM' to continue: "
 if ($confirm -ne "CONFIRM") {
     Write-Host "Aborted."
