@@ -3,8 +3,8 @@ set -e
 
 # Default values
 GITHUB_OWNER="stackai"
-REPO_NAME="stackai-onprem"
-BRANCH="on-prem-aks-auto-flux-bootstrap"
+REPO_NAME="stackai-byoc"
+BRANCH="main"
 REPO_BASE="$(git rev-parse --show-toplevel)"
 FLUX_PATH="./clusters/aks"
 

@@ -1,7 +1,7 @@
 variable "cluster_name" {
   description = "Name of the AKS cluster"
   type        = string
-  default     = "fullStack-cluster-fonsi"
+  default     = "stackai-cluster"
 }
 
 variable "location" {
@@ -61,7 +61,7 @@ variable "node_size" {
 variable "user_suffix" {
   description = "User identifier suffix for resource naming (e.g., username or initials)"
   type        = string
-  default     = "fonsi"
+  default     = "stackai"
 }
 
 variable "tags" {
@@ -69,7 +69,7 @@ variable "tags" {
   type        = map(string)
   default = {
     Environment = "dev"
-    Project     = "fullStack-cluster-fonsi"
+    Project     = "stackai-cluster"
     ManagedBy   = "terraform"
   }
 }
