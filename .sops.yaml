@@ -3,31 +3,31 @@ creation_rules:
   - path_regex: sops/clusters/.*\.age\.enc$
     encrypted_regex: ^(data|stringData)$
     age: >-
-      age1ryhe6c4xgvenxxfqe0qvnth6x0tjp07gulhnjst3lqecl0edlslq68ywd4,
-      age1w9ctg2zu735muz9zuft7rzp32nuz0pnr3z8fq5jlljsftx0pyfnsw2vj5h
+      age1xxhf7ylqfqejzq3e3fx9xv4t9u32hldrlzza4jf8u46kdmm49a9svfpg30,
+      age1sm0qs3tytp9tlrjjm79m6rnd49enj6nrwy3yhzx0tr6np54dae6q5njwgm
   
   # Encrypt all YAML files in sops/clusters with master and GitHub keys
   - path_regex: sops/clusters/.*\.yaml$
     encrypted_regex: ^(data|stringData)$
     age: >-
-      age1ryhe6c4xgvenxxfqe0qvnth6x0tjp07gulhnjst3lqecl0edlslq68ywd4,
-      age1w9ctg2zu735muz9zuft7rzp32nuz0pnr3z8fq5jlljsftx0pyfnsw2vj5h
+      age1xxhf7ylqfqejzq3e3fx9xv4t9u32hldrlzza4jf8u46kdmm49a9svfpg30,
+      age1sm0qs3tytp9tlrjjm79m6rnd49enj6nrwy3yhzx0tr6np54dae6q5njwgm
   
-  # Encrypt all YAML files in the clusters directory with both master and cluster keys
+  # Encrypt all YAML files in the clusters directory with master and cluster keys
   - path_regex: clusters/.*\.yaml$
     encrypted_regex: ^(data|stringData)$
     age: >-
-      age1ryhe6c4xgvenxxfqe0qvnth6x0tjp07gulhnjst3lqecl0edlslq68ywd4,
-      age1525zz0ucak8u0hm79cd958393nl8r00k6jvvjy5azanjy9fy34esj4xudc
+      age1xxhf7ylqfqejzq3e3fx9xv4t9u32hldrlzza4jf8u46kdmm49a9svfpg30,
+      age1h58qlpvyqtvsxwha5avasw5uh0acx8d3jwxutghzpudy8msasdnqkqr3eg
   
   # Encrypt secrets in components directory with all three keys
   - path_regex: components/.*secret.*\.yaml$
     encrypted_regex: ^(data|stringData)$
     age: >-
-      age1ryhe6c4xgvenxxfqe0qvnth6x0tjp07gulhnjst3lqecl0edlslq68ywd4,
-      age1w9ctg2zu735muz9zuft7rzp32nuz0pnr3z8fq5jlljsftx0pyfnsw2vj5h,
-      age1525zz0ucak8u0hm79cd958393nl8r00k6jvvjy5azanjy9fy34esj4xudc
+      age1xxhf7ylqfqejzq3e3fx9xv4t9u32hldrlzza4jf8u46kdmm49a9svfpg30,
+      age1sm0qs3tytp9tlrjjm79m6rnd49enj6nrwy3yhzx0tr6np54dae6q5njwgm,
+      age1h58qlpvyqtvsxwha5avasw5uh0acx8d3jwxutghzpudy8msasdnqkqr3eg
   
   # Default rule for any other files
   - encrypted_regex: ^(data|stringData)$
-    age: age1ryhe6c4xgvenxxfqe0qvnth6x0tjp07gulhnjst3lqecl0edlslq68ywd4
+    age: age1xxhf7ylqfqejzq3e3fx9xv4t9u32hldrlzza4jf8u46kdmm49a9svfpg30
