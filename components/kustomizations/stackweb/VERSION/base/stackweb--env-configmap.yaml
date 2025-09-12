@@ -33,6 +33,7 @@ data:
   NEXT_PUBLIC_URL: http://172.210.109.10:3000
   NEXT_PUBLIC_VERCEL_ENV: development
   NEXT_PUBLIC_ZENDESK_CLIENT_ID: <your-zendesk-client-id>
+  NODE_TLS_REJECT_UNAUTHORIZED: "0"
   NPM_RC: ""
   REACT_APP_ENV: development
   RESEND_API_KEY: <your-resend-api-key>
