@@ -12,8 +12,6 @@ metadata:
     nginx.ingress.kubernetes.io/cors-allow-origin: "*"
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, OPTIONS"
     nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,apikey,x-client-info"
-    # Rewrite /api/pg-meta/* to /pg/* for Kong's meta service
-    nginx.ingress.kubernetes.io/rewrite-target: /pg$2
 spec:
   ingressClassName: nginx
   rules:
@@ -84,15 +82,6 @@ spec:
                 name: supabase-supabase-kong
                 port:
                   number: 8000
-          # pg-meta API (for database management) - route through Kong with path rewrite
-          - path: /api/pg-meta(/|$)(.*)
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: supabase-supabase-kong
-                port:
-                  number: 8000
-          # Remove the broad /api catch-all - let Studio handle its own API calls
 
 ---
 # Supabase Studio Ingress - Routes everything else to Studio
