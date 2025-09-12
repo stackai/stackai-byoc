@@ -3,31 +3,31 @@ creation_rules:
   - path_regex: sops/clusters/.*\.age\.enc$
     encrypted_regex: ^(data|stringData)$
     age: >-
-      age1xxhf7ylqfqejzq3e3fx9xv4t9u32hldrlzza4jf8u46kdmm49a9svfpg30,
-      age1sm0qs3tytp9tlrjjm79m6rnd49enj6nrwy3yhzx0tr6np54dae6q5njwgm
+      age1ycuje23wwyr2alj9498gqskqysf0jrzfc6w3fxd0uw2jjfpm9ggqa4qvan,
+      age1jg0ska7gmt2m35588cumpqt3a3m63d8xr8l8rckzn2hvscnped5s4z3khx
   
   # Encrypt all YAML files in sops/clusters with master and GitHub keys
   - path_regex: sops/clusters/.*\.yaml$
     encrypted_regex: ^(data|stringData)$
     age: >-
-      age1xxhf7ylqfqejzq3e3fx9xv4t9u32hldrlzza4jf8u46kdmm49a9svfpg30,
-      age1sm0qs3tytp9tlrjjm79m6rnd49enj6nrwy3yhzx0tr6np54dae6q5njwgm
+      age1ycuje23wwyr2alj9498gqskqysf0jrzfc6w3fxd0uw2jjfpm9ggqa4qvan,
+      age1jg0ska7gmt2m35588cumpqt3a3m63d8xr8l8rckzn2hvscnped5s4z3khx
   
   # Encrypt all YAML files in the clusters directory with master and cluster keys
   - path_regex: clusters/.*\.yaml$
     encrypted_regex: ^(data|stringData)$
     age: >-
-      age1xxhf7ylqfqejzq3e3fx9xv4t9u32hldrlzza4jf8u46kdmm49a9svfpg30,
-      age1h58qlpvyqtvsxwha5avasw5uh0acx8d3jwxutghzpudy8msasdnqkqr3eg
+      age1ycuje23wwyr2alj9498gqskqysf0jrzfc6w3fxd0uw2jjfpm9ggqa4qvan,
+      age1r5mx40qjmsjx8tdz7wssnl2l240fl0gpnyuue8jkhmneyxp94vnsdfwsu8
   
   # Encrypt secrets in components directory with all three keys
   - path_regex: components/.*secret.*\.yaml$
     encrypted_regex: ^(data|stringData)$
     age: >-
-      age1xxhf7ylqfqejzq3e3fx9xv4t9u32hldrlzza4jf8u46kdmm49a9svfpg30,
-      age1sm0qs3tytp9tlrjjm79m6rnd49enj6nrwy3yhzx0tr6np54dae6q5njwgm,
-      age1h58qlpvyqtvsxwha5avasw5uh0acx8d3jwxutghzpudy8msasdnqkqr3eg
+      age1ycuje23wwyr2alj9498gqskqysf0jrzfc6w3fxd0uw2jjfpm9ggqa4qvan,
+      age1jg0ska7gmt2m35588cumpqt3a3m63d8xr8l8rckzn2hvscnped5s4z3khx,
+      age1r5mx40qjmsjx8tdz7wssnl2l240fl0gpnyuue8jkhmneyxp94vnsdfwsu8
   
   # Default rule for any other files
   - encrypted_regex: ^(data|stringData)$
-    age: age1xxhf7ylqfqejzq3e3fx9xv4t9u32hldrlzza4jf8u46kdmm49a9svfpg30
+    age: age1ycuje23wwyr2alj9498gqskqysf0jrzfc6w3fxd0uw2jjfpm9ggqa4qvan
