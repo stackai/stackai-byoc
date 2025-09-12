@@ -1,0 +1,128 @@
+# Supabase API Ingress - Routes API paths to Kong
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: supabase-api-ingress
+  namespace: flux-system
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,apikey,x-client-info"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: ${DB_HOSTNAME}
+      http:
+        paths:
+          # Supabase REST API
+          - path: /rest/v1
+            pathType: Prefix
+            backend:
+              service:
+                name: supabase-supabase-kong
+                port:
+                  number: 8000
+          # GraphQL API
+          - path: /graphql/v1
+            pathType: Prefix
+            backend:
+              service:
+                name: supabase-supabase-kong
+                port:
+                  number: 8000
+          # Auth API
+          - path: /auth/v1
+            pathType: Prefix
+            backend:
+              service:
+                name: supabase-supabase-kong
+                port:
+                  number: 8000
+          # Realtime API
+          - path: /realtime/v1
+            pathType: Prefix
+            backend:
+              service:
+                name: supabase-supabase-kong
+                port:
+                  number: 8000
+          # Storage API
+          - path: /storage/v1
+            pathType: Prefix
+            backend:
+              service:
+                name: supabase-supabase-kong
+                port:
+                  number: 8000
+          # Functions API
+          - path: /functions/v1
+            pathType: Prefix
+            backend:
+              service:
+                name: supabase-supabase-kong
+                port:
+                  number: 8000
+          # Analytics API
+          - path: /analytics/v1
+            pathType: Prefix
+            backend:
+              service:
+                name: supabase-supabase-kong
+                port:
+                  number: 8000
+          # SSO API
+          - path: /sso
+            pathType: Prefix
+            backend:
+              service:
+                name: supabase-supabase-kong
+                port:
+                  number: 8000
+          # pg-meta API (for database management)
+          - path: /api/pg-meta
+            pathType: Prefix
+            backend:
+              service:
+                name: supabase-supabase-kong
+                port:
+                  number: 8000
+          # Other API paths
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: supabase-supabase-kong
+                port:
+                  number: 8000
+
+---
+# Supabase Studio Ingress - Routes everything else to Studio
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: supabase-studio-ingress
+  namespace: flux-system
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    # Lower priority than API ingress
+    nginx.ingress.kubernetes.io/priority: "100"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: ${DB_HOSTNAME}
+      http:
+        paths:
+          # Default route - everything else goes to Studio
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: supabase-supabase-studio
+                port:
+                  number: 3000

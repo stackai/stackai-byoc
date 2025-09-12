@@ -4,5 +4,6 @@ resources:
   - ../base
   - secrets.yaml
   - storageclass.yaml
+  - supabase-ingresses.yaml
 patchesStrategicMerge:
   - helmrelease-patch.yaml
