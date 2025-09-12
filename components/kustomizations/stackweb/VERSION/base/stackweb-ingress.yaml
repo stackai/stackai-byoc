@@ -19,3 +19,13 @@ spec:
                 name: stackweb
                 port:
                   number: 3000
+    - host: ${BARE_HOSTNAME} # Bare domain routing to stackweb (format: 20-241-153-9.nip.io)
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: stackweb
+                port:
+                  number: 3000

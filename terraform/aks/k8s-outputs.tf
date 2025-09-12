@@ -33,6 +33,7 @@ resource "kubernetes_config_map" "terraform_outputs" {
     
     # Load Balancer information
     LOAD_BALANCER_IP      = data.kubernetes_service.nginx_ingress.status.0.load_balancer.0.ingress.0.ip
+    BARE_HOSTNAME         = "${replace(data.kubernetes_service.nginx_ingress.status.0.load_balancer.0.ingress.0.ip, ".", "-")}.nip.io"
     
     # Service hostnames (using nip.io for automatic DNS resolution)
     API_HOSTNAME          = local.service_hostnames.api
