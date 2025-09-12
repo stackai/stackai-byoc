@@ -82,14 +82,14 @@ spec:
                 name: supabase-supabase-kong
                 port:
                   number: 8000
-          # pg-meta API (for database management)
+          # pg-meta API (for database management) - direct to meta service
           - path: /api/pg-meta
             pathType: Prefix
             backend:
               service:
-                name: supabase-supabase-kong
+                name: supabase-supabase-meta
                 port:
-                  number: 8000
+                  number: 8080
           # Other API paths
           - path: /api
             pathType: Prefix
