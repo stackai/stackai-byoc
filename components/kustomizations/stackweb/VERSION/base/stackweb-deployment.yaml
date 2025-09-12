@@ -40,11 +40,11 @@ spec:
               protocol: TCP
           resources:
             requests:
-              cpu: "6"
-              memory: "16Gi"
+              cpu: "1"
+              memory: "2Gi"
             limits:
-              cpu: "7"
-              memory: "20Gi"
+              cpu: "2"
+              memory: "4Gi"
       imagePullSecrets:
         - name: acr-secret
       restartPolicy: Always
