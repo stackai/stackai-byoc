@@ -28,7 +28,7 @@ resource "null_resource" "wait_for_nginx_ingress" {
       # Wait for nginx ingress controller service to exist
       echo "Waiting for nginx ingress controller service..."
       for i in {1..60}; do
-        if kubectl get svc -n nginx-ingress nginx-ingress-controller &>/dev/null; then
+        if kubectl get svc -n nginx-ingress nginx-ingress-controller-ingress-nginx-controller &>/dev/null; then
           echo "✅ nginx ingress controller service is available"
           break
         else
@@ -39,12 +39,12 @@ resource "null_resource" "wait_for_nginx_ingress" {
       
       # Wait for deployment to be ready
       echo "Waiting for nginx ingress controller deployment..."
-      kubectl wait --for=condition=available --timeout=600s deployment/nginx-ingress-controller -n nginx-ingress || true
+      kubectl wait --for=condition=available --timeout=600s deployment/nginx-ingress-controller-ingress-nginx-controller -n nginx-ingress || true
       
       # Wait for LoadBalancer to get external IP
       echo "Waiting for LoadBalancer external IP..."
       for i in {1..120}; do
-        IP=$(kubectl get service nginx-ingress-controller -n nginx-ingress -o jsonpath='{.status.loadBalancer.ingress[0].ip}' 2>/dev/null || echo "")
+        IP=$(kubectl get service nginx-ingress-controller-ingress-nginx-controller -n nginx-ingress -o jsonpath='{.status.loadBalancer.ingress[0].ip}' 2>/dev/null || echo "")
         if [ ! -z "$IP" ] && [ "$IP" != "null" ]; then
           echo "✅ LoadBalancer IP found: $IP"
           exit 0
@@ -64,7 +64,7 @@ data "kubernetes_service" "nginx_ingress" {
   depends_on = [null_resource.wait_for_nginx_ingress]
   
   metadata {
-    name      = "nginx-ingress-controller"
+    name      = "nginx-ingress-controller-ingress-nginx-controller"
     namespace = "nginx-ingress"
   }
 }
