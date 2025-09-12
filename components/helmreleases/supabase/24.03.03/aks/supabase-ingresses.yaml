@@ -92,14 +92,7 @@ spec:
                 name: supabase-supabase-kong
                 port:
                   number: 8000
-          # Other API paths
-          - path: /api
-            pathType: Prefix
-            backend:
-              service:
-                name: supabase-supabase-kong
-                port:
-                  number: 8000
+          # Remove the broad /api catch-all - let Studio handle its own API calls
 
 ---
 # Supabase Studio Ingress - Routes everything else to Studio
