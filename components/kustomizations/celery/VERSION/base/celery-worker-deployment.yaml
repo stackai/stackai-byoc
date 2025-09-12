@@ -26,6 +26,37 @@ spec:
         - envFrom:
             - configMapRef:
                 name: stackend--env
+          env:
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: openai-secret
+                  key: openai-api-key
+            - name: OPENAI_API_KEY_1
+              valueFrom:
+                secretKeyRef:
+                  name: openai-secret
+                  key: openai-api-key-1
+            - name: OPENAI_API_KEY_2
+              valueFrom:
+                secretKeyRef:
+                  name: openai-secret
+                  key: openai-api-key-2
+            - name: OPENAI_API_KEY_3
+              valueFrom:
+                secretKeyRef:
+                  name: openai-secret
+                  key: openai-api-key-3
+            - name: OPENAI_API_KEY_4
+              valueFrom:
+                secretKeyRef:
+                  name: openai-secret
+                  key: openai-api-key-4
+            - name: OPENAI_API_KEY_5
+              valueFrom:
+                secretKeyRef:
+                  name: openai-secret
+                  key: openai-api-key-5
           image: stackai.azurecr.io/stackai/stackend-celery-worker:latest
           name: celery-worker
           volumeMounts:

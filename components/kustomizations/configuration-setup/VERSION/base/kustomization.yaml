@@ -8,3 +8,4 @@ resources:
   # Temporarily disabled secrets due to SOPS key rotation
   # - acr-secret.enc.yaml
   # - stackend-licence-secret.enc.yaml
+  - openai-secret.enc.yaml

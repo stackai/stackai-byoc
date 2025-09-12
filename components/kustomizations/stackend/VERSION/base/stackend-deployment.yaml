@@ -39,6 +39,36 @@ spec:
                 secretKeyRef:
                   name: stackend-licence-secret
                   key: licence
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: openai-secret
+                  key: openai-api-key
+            - name: OPENAI_API_KEY_1
+              valueFrom:
+                secretKeyRef:
+                  name: openai-secret
+                  key: openai-api-key-1
+            - name: OPENAI_API_KEY_2
+              valueFrom:
+                secretKeyRef:
+                  name: openai-secret
+                  key: openai-api-key-2
+            - name: OPENAI_API_KEY_3
+              valueFrom:
+                secretKeyRef:
+                  name: openai-secret
+                  key: openai-api-key-3
+            - name: OPENAI_API_KEY_4
+              valueFrom:
+                secretKeyRef:
+                  name: openai-secret
+                  key: openai-api-key-4
+            - name: OPENAI_API_KEY_5
+              valueFrom:
+                secretKeyRef:
+                  name: openai-secret
+                  key: openai-api-key-5
           image: stackai.azurecr.io/stackai/stackend-backend:latest
           name: stackend
           ports:
