@@ -81,3 +81,26 @@ output "post_deployment_complete" {
   value       = "Post-deployment completed at ${null_resource.create_login_user.id}"
   depends_on  = [null_resource.create_login_user]
 }
+
+# Load Balancer and Service outputs
+output "load_balancer_ip" {
+  description = "External IP of the nginx ingress controller"
+  value       = data.kubernetes_service.nginx_ingress.status.0.load_balancer.0.ingress.0.ip
+  depends_on  = [null_resource.wait_for_nginx_ingress]
+}
+
+output "service_hostnames" {
+  description = "Hostnames for accessing the services (using nip.io for automatic DNS)"
+  value       = local.service_hostnames
+  depends_on  = [null_resource.wait_for_nginx_ingress]
+}
+
+output "service_urls" {
+  description = "URLs for accessing the services"
+  value = {
+    api_url = "http://${local.service_hostnames.api}"
+    app_url = "http://${local.service_hostnames.app}"
+    db_url  = "http://${local.service_hostnames.db}"
+  }
+  depends_on = [null_resource.wait_for_nginx_ingress]
+}

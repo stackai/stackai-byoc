@@ -1,0 +1,86 @@
+# Test ingress to verify DNS and host-based routing works
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: stackai-test-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: api.${LOAD_BALANCER_IP_DASHED}.nip.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: test-service
+                port:
+                  number: 80
+    - host: app.${LOAD_BALANCER_IP_DASHED}.nip.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: test-service
+                port:
+                  number: 80
+    - host: db.${LOAD_BALANCER_IP_DASHED}.nip.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: test-service
+                port:
+                  number: 80
+---
+# Simple test service
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-service
+  namespace: default
+spec:
+  type: ClusterIP
+  selector:
+    app: test-app
+  ports:
+    - port: 80
+      targetPort: 80
+---
+# Test deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-deployment
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-app
+  template:
+    metadata:
+      labels:
+        app: test-app
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+          command: ["/bin/sh"]
+          args:
+            [
+              "-c",
+              "echo '<h1>Hello from StackAI Azure DNS!</h1><p>Host: $HOSTNAME</p><p>Service: '$(echo $HOSTNAME | cut -d. -f1)'</p><p>Request Host: ${HTTP_HOST:-unknown}</p>' > /usr/share/nginx/html/index.html && nginx -g 'daemon off;'",
+            ]
+          env:
+            - name: HTTP_HOST
+              value: "test"

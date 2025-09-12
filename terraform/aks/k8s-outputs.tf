@@ -30,10 +30,24 @@ resource "kubernetes_config_map" "terraform_outputs" {
     # Key Vault information
     KEY_VAULT_NAME        = azurerm_key_vault.main.name
     KEY_VAULT_URI         = azurerm_key_vault.main.vault_uri
+    
+    # Load Balancer information
+    LOAD_BALANCER_IP      = data.kubernetes_service.nginx_ingress.status.0.load_balancer.0.ingress.0.ip
+    
+    # Service hostnames (using nip.io for automatic DNS resolution)
+    API_HOSTNAME          = local.service_hostnames.api
+    APP_HOSTNAME          = local.service_hostnames.app
+    DB_HOSTNAME           = local.service_hostnames.db
+    
+    # Service URLs
+    API_URL               = "http://${local.service_hostnames.api}"
+    APP_URL               = "http://${local.service_hostnames.app}"
+    DB_URL                = "http://${local.service_hostnames.db}"
   }
 
   depends_on = [
     azurerm_kubernetes_cluster.aks,
-    null_resource.create_flux_ns
+    null_resource.create_flux_ns,
+    null_resource.wait_for_nginx_ingress
   ]
 }

@@ -98,3 +98,5 @@ variable "memory_max_node_count" {
   type        = number
   default     = 10
 }
+
+# No DNS configuration needed - using nip.io for automatic DNS resolution
