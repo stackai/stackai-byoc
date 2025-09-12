@@ -36,6 +36,7 @@ data:
   NODE_TLS_REJECT_UNAUTHORIZED: "0"
   HOSTNAME: "0.0.0.0"
   PORT: "3000"
+  NEXT_PUBLIC_VERCEL_URL: "20-241-153-9.nip.io"
   NPM_RC: ""
   REACT_APP_ENV: production
   RESEND_API_KEY: <your-resend-api-key>
