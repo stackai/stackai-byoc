@@ -5,6 +5,6 @@ resources:
   - stackend--env-configmap.yaml
   - stackweb--env-configmap.yaml
   - stackend-migration-job.yaml
-  # Temporarily disabled due to SOPS decryption issues
-  # - acr-secret.enc.yaml
+  # Re-enabled ACR secret for image pulling
+  - acr-secret.enc.yaml
   # - stackend-licence-secret.enc.yaml
