@@ -19,7 +19,7 @@ data:
   NEXT_PUBLIC_OUTLOOK_CLIENT_ID: <your-outlook-client-id>
   NEXT_PUBLIC_POSTHOG_API_KEY: <your-posthog-api-key>
   NEXT_PUBLIC_POSTHOG_HOST: <your-posthog-host>
-  NEXT_PUBLIC_REACT_APP_ENV: development
+  NEXT_PUBLIC_REACT_APP_ENV: production
   NEXT_PUBLIC_SENTRY_DSN: ""
   NEXT_PUBLIC_SHAREPOINT_CLIENT_ID: <your-sharepoint-client-id>
   NEXT_PUBLIC_SITE_URL: http://20-241-153-9.nip.io
@@ -31,11 +31,13 @@ data:
   NEXT_PUBLIC_SUPABASE_URL: http://db.20-241-153-9.nip.io/
   NEXT_PUBLIC_TYPEFORM_CLIENT_ID: <your-typeform-client-id>
   NEXT_PUBLIC_URL: http://20-241-153-9.nip.io
-  NEXT_PUBLIC_VERCEL_ENV: development
+  NEXT_PUBLIC_VERCEL_ENV: production
   NEXT_PUBLIC_ZENDESK_CLIENT_ID: <your-zendesk-client-id>
   NODE_TLS_REJECT_UNAUTHORIZED: "0"
+  HOSTNAME: "0.0.0.0"
+  PORT: "3000"
   NPM_RC: ""
-  REACT_APP_ENV: development
+  REACT_APP_ENV: production
   RESEND_API_KEY: <your-resend-api-key>
   SHEET_ID: "0"
   SLACK_CUSTOMER_SUPPORT_WEBHOOK: <your-slack-customer-support-webhook>
