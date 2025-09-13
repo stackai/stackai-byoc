@@ -8,6 +8,28 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    # CORS configuration to handle build-time localhost references
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,apikey,x-client-info,Accept,Accept-Language,Content-Language,Origin,Referer"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    nginx.ingress.kubernetes.io/cors-max-age: "86400"
+    # Custom configuration to handle localhost references from build-time
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      # Force CORS headers on all responses to override build-time limitations
+      more_set_headers "Access-Control-Allow-Origin: *";
+      more_set_headers "Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE, PATCH";
+      more_set_headers "Access-Control-Allow-Headers: DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,apikey,x-client-info,Accept,Accept-Language,Content-Language,Origin,Referer";
+      more_set_headers "Access-Control-Allow-Credentials: true";
+      # Handle preflight OPTIONS requests
+      if ($request_method = 'OPTIONS') {
+        more_set_headers "Access-Control-Allow-Origin: *";
+        more_set_headers "Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE, PATCH";
+        more_set_headers "Access-Control-Allow-Headers: DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,apikey,x-client-info,Accept,Accept-Language,Content-Language,Origin,Referer";
+        more_set_headers "Access-Control-Max-Age: 86400";
+        return 204;
+      }
 spec:
   ingressClassName: nginx
   tls:
