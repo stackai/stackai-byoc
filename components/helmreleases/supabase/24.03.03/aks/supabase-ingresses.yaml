@@ -21,7 +21,7 @@ spec:
   tls:
     - hosts:
         - ${DB_HOSTNAME}
-      secretName: supabase-tls
+      secretName: supabase-api-tls
   rules:
     - host: ${DB_HOSTNAME}
       http:
@@ -104,8 +104,14 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
     # Lower priority than API ingress
     nginx.ingress.kubernetes.io/priority: "100"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - ${DB_HOSTNAME}
+      secretName: supabase-studio-tls
   rules:
     - host: ${DB_HOSTNAME}
       http:
