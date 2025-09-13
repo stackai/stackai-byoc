@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: caddy-config
+data:
+  Caddyfile: |
+    # Main application domain
+    20-241-153-9.nip.io {
+      # Disable automatic HTTPS for nip.io (use self-signed internally)
+      tls internal
+      
+      # Reverse proxy to stackweb service
+      reverse_proxy stackweb:3000 {
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        header_up X-Forwarded-For {remote}
+        header_up X-Forwarded-Proto {scheme}
+      }
+      
+      # Add CORS headers for all responses
+      header {
+        Access-Control-Allow-Origin *
+        Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+        Access-Control-Allow-Headers "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,apikey,x-client-info,Accept,Accept-Language,Content-Language,Origin,Referer"
+        Access-Control-Allow-Credentials true
+        Access-Control-Max-Age 86400
+      }
+      
+      # Handle preflight OPTIONS requests
+      @options method OPTIONS
+      respond @options 204
+    }
+
+    # App subdomain (if needed)
+    app.20-241-153-9.nip.io {
+      tls internal
+      reverse_proxy stackweb:3000 {
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        header_up X-Forwarded-For {remote}
+        header_up X-Forwarded-Proto {scheme}
+      }
+      header {
+        Access-Control-Allow-Origin *
+        Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+        Access-Control-Allow-Headers "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,apikey,x-client-info,Accept,Accept-Language,Content-Language,Origin,Referer"
+        Access-Control-Allow-Credentials true
+        Access-Control-Max-Age 86400
+      }
+      @options method OPTIONS
+      respond @options 204
+    }
+
+    # Supabase database domain
+    db.20-241-153-9.nip.io {
+      tls internal
+      
+      # Reverse proxy to Supabase Kong service
+      reverse_proxy supabase-supabase-kong:8000 {
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        header_up X-Forwarded-For {remote}
+        header_up X-Forwarded-Proto {scheme}
+      }
+      
+      # Enhanced CORS headers for Supabase API
+      header {
+        Access-Control-Allow-Origin *
+        Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+        Access-Control-Allow-Headers "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,apikey,x-client-info,Accept,Accept-Language,Content-Language,Origin,Referer"
+        Access-Control-Allow-Credentials true
+        Access-Control-Max-Age 86400
+      }
+      
+      @options method OPTIONS
+      respond @options 204
+    }

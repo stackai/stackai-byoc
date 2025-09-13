@@ -7,3 +7,4 @@ resources:
   - stackweb.yaml
   - stackend.yaml
   - configuration-setup.yaml
+  - caddy.yaml
