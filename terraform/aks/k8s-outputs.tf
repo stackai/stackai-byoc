@@ -40,10 +40,10 @@ resource "kubernetes_config_map" "terraform_outputs" {
     APP_HOSTNAME          = local.service_hostnames.app
     DB_HOSTNAME           = local.service_hostnames.db
     
-    # Service URLs
-    API_URL               = "http://${local.service_hostnames.api}"
-    APP_URL               = "http://${local.service_hostnames.app}"
-    DB_URL                = "http://${local.service_hostnames.db}"
+    # Service URLs (using HTTPS for CORS compatibility)
+    API_URL               = "https://${local.service_hostnames.api}"
+    APP_URL               = "https://${local.service_hostnames.app}"
+    DB_URL                = "https://${local.service_hostnames.db}"
   }
 
   depends_on = [

@@ -98,9 +98,9 @@ output "service_hostnames" {
 output "service_urls" {
   description = "URLs for accessing the services"
   value = {
-    api_url = "http://${local.service_hostnames.api}"
-    app_url = "http://${local.service_hostnames.app}"
-    db_url  = "http://${local.service_hostnames.db}"
+    api_url = "https://${local.service_hostnames.api}"
+    app_url = "https://${local.service_hostnames.app}"
+    db_url  = "https://${local.service_hostnames.db}"
   }
   depends_on = [null_resource.wait_for_nginx_ingress]
 }
