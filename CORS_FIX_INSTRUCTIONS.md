@@ -1,14 +1,17 @@
 # CORS Fix Implementation Instructions
 
 ## Problem
+
 The CORS issue occurs because requests are going from `http://20-241-153-9.nip.io` to `http://db.20-241-153-9.nip.io`, which are different origins.
 
 ## Solution
+
 We've updated the Supabase URL to use a proxy route: `http://20-241-153-9.nip.io/supabase`
 
 ## Required Changes to next.config.js
 
 ### 1. Update the rewrites() function
+
 Add this rewrite rule at the beginning of your rewrites array:
 
 ```javascript
@@ -17,7 +20,7 @@ async rewrites() {
     // Supabase proxy route - ADD THIS FIRST
     {
       source: '/supabase/:path*',
-      destination: 'http://db.20-241-153-9.nip.io/:path*',
+      destination: 'https://db.20-241-153-9.nip.io/:path*',
     },
   ];
 
@@ -44,6 +47,7 @@ async rewrites() {
 ```
 
 ### 2. Update the headers() function
+
 Change your existing headers function to include the supabase proxy:
 
 ```javascript
@@ -71,15 +75,21 @@ async headers() {
 ```
 
 ## What This Does
+
 1. All Supabase requests will now go to `/supabase/*` on the same domain
 2. Next.js will proxy these requests to `http://db.20-241-153-9.nip.io/*`
 3. The CORS headers will be applied to these proxied requests
 4. No more cross-origin issues!
 
-## Environment Variable Updated
-- `NEXT_PUBLIC_SUPABASE_URL` changed from `http://db.20-241-153-9.nip.io/` to `http://20-241-153-9.nip.io/supabase`
+## Environment Variables Updated
+
+- `NEXT_PUBLIC_SUPABASE_URL` changed from `http://db.20-241-153-9.nip.io/` to `https://20-241-153-9.nip.io/supabase`
+- `NEXT_PUBLIC_SITE_URL` changed to `https://20-241-153-9.nip.io`
+- `NEXT_PUBLIC_URL` changed to `https://20-241-153-9.nip.io`
+- **HTTPS is now enabled** with automatic Let's Encrypt certificates
 
 ## Next Steps
+
 1. Update your next.config.js with the changes above
 2. Rebuild and deploy your application
 3. Test the authentication - CORS errors should be gone!

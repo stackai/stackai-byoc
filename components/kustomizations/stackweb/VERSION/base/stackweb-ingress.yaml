@@ -6,8 +6,15 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "100m"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - ${APP_HOSTNAME}
+        - ${BARE_HOSTNAME}
+      secretName: stackweb-tls
   rules:
     - host: ${APP_HOSTNAME} # This will be replaced by Flux with nip.io hostname from Terraform ConfigMap
       http:
