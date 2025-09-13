@@ -14,7 +14,7 @@ metadata:
     nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,apikey,x-client-info,Accept,Accept-Language,Content-Language,Origin,Referer"
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
     nginx.ingress.kubernetes.io/cors-max-age: "86400"
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    # cert-manager.io/cluster-issuer: "letsencrypt-prod"  # Disabled for nip.io domains
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     # Enhanced CORS configuration to handle build-time localhost references
     nginx.ingress.kubernetes.io/configuration-snippet: |
@@ -41,7 +41,7 @@ spec:
   tls:
     - hosts:
         - ${DB_HOSTNAME}
-      secretName: supabase-api-tls
+      secretName: supabase-tls-selfsigned
   rules:
     - host: ${DB_HOSTNAME}
       http:
@@ -124,14 +124,14 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
     # Lower priority than API ingress
     nginx.ingress.kubernetes.io/priority: "100"
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    # cert-manager.io/cluster-issuer: "letsencrypt-prod"  # Disabled for nip.io domains
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
         - ${DB_HOSTNAME}
-      secretName: supabase-studio-tls
+      secretName: supabase-tls-selfsigned
   rules:
     - host: ${DB_HOSTNAME}
       http:

@@ -6,7 +6,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "100m"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    # cert-manager.io/cluster-issuer: "letsencrypt-prod"  # Disabled for nip.io domains
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     # CORS configuration to handle build-time localhost references
     nginx.ingress.kubernetes.io/enable-cors: "true"
@@ -36,7 +36,7 @@ spec:
     - hosts:
         - ${APP_HOSTNAME}
         - ${BARE_HOSTNAME}
-      secretName: stackweb-tls
+      secretName: stackweb-tls-selfsigned
   rules:
     - host: ${APP_HOSTNAME} # This will be replaced by Flux with nip.io hostname from Terraform ConfigMap
       http:
